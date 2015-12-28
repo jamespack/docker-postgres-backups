@@ -8,7 +8,7 @@ FILE="/tmp/$PREFIX-$DATE.sql"
 GPG_FILE="/tmp/$PREFIX-$DATE.sql.gpg"
 
 echo "> Running pg_dumpall"
-pg_dumpall -h "$POSTGRES_PORT_5432_TCP_ADDR" -U postgres > $FILE
+PGPASSWORD="$POSTGRES_ENV_POSTGRES_PASSWORD" pg_dumpall -h "$POSTGRES_PORT_5432_TCP_ADDR" -U "$POSTGRES_ENV_POSTGRES_USER" > $FILE
 
 echo "> Downloading public key: ${GPG_PUBKEY_ID}"
 gpg --keyserver pgp.mit.edu --recv-keys ${GPG_PUBKEY_ID}
