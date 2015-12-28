@@ -11,8 +11,7 @@ RUN pip install awscli==1.9.15
 # Note that because cron does not seem to know about Docker's environment
 # variables, we have to read them in from a file that we write out
 # in entrypoint.sh at runtime.
-#RUN echo "0 0,6,12,18 * * * env - \`cat /tmp/env.sh\` /bin/bash -c '(cd /code && sh run-backup.sh) >> /code/backups-cron.log 2>>\&1'" | crontab -
-RUN echo "* * * * * env - \`cat /tmp/env.sh\` /bin/bash -c '(cd /code && sh run-backup.sh) >> /code/backups-cron.log 2>>\&1'" | crontab -
+RUN echo "0 0,6,12,18 * * * env - \`cat /tmp/env.sh\` /bin/bash -c '(cd /code && sh run-backup.sh) >> /code/backups-cron.log 2>>\&1'" | crontab -
 
 RUN mkdir -p /code
 WORKDIR /code
