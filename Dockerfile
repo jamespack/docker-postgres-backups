@@ -1,4 +1,5 @@
-FROM ubuntu:14.04.3
+FROM postgres:9.4.5
+MAINTAINER Siphon <hello@getsiphon.com>
 
 USER root
 RUN apt-get update
@@ -17,3 +18,4 @@ ADD run-backup.sh /code/run-backup.sh
 RUN chmod +x /code/entrypoint.sh
 
 ENTRYPOINT ["sh", "entrypoint.sh"]
+CMD [""] # overrides the default from image we inherited from
