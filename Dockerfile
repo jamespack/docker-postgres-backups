@@ -3,7 +3,10 @@ MAINTAINER Siphon <hello@getsiphon.com>
 
 USER root
 RUN apt-get update
-RUN apt-get install -q -y --force-yes cron gnupg
+RUN apt-get install -q -y --force-yes cron gnupg python-pip
+
+# AWS Command Line Interface
+RUN pip install awscli==1.9.15
 
 # Note that because cron does not seem to know about Docker's environment
 # variables, we have to read them in from a file that we write out
