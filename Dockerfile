@@ -3,7 +3,7 @@ MAINTAINER Siphon <hello@getsiphon.com>
 
 USER root
 RUN apt-get update
-RUN apt-get install -q -y --force-yes cron
+RUN apt-get install -q -y --force-yes cron gnupg
 
 # Note that because cron does not seem to know about Docker's environment
 # variables, we have to read them in from a file that we write out
