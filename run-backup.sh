@@ -18,14 +18,13 @@ echo "> Encrypting dump file using gpg"
 gpg --always-trust -v -e -r ${GPG_PUBKEY_ID} -o $GPG_FILE $FILE
 
 echo "> Zipping dump file"
-gzip -9 "$GPG_FILE.gz" $GPG_FILE
+gzip -9 $GPG_FILE
 
 echo "> Uploading to S3"
-AWS_ACCESS_KEY_ID="$AWS_ACCESS_KEY_ID" AWS_SECRET_ACCESS_KEY="$AWS_SECRET_ACCESS_KEY" aws s3 cp "$GPG_FILE" "$S3_URI"
+AWS_ACCESS_KEY_ID="$AWS_ACCESS_KEY_ID" AWS_SECRET_ACCESS_KEY="$AWS_SECRET_ACCESS_KEY" aws s3 cp "$GPG_FILE.gz" "$S3_URI"
 
 # Clean up
 rm $FILE
-rm $GPG_FILE
 rm "$GPG_FILE.gz"
 
 echo "Done."
