@@ -6,7 +6,7 @@ echo "*** Starting run-backup.sh ***"
 DATE=$(date +%Y%m%d_%H%M%S)
 FILE="/tmp/$PREFIX-$DATE.sql"
 GPG_FILE="/tmp/$PREFIX-$DATE.sql.gpg"
-S3_URI="s3://$S3_BUCKET_NAME/$PREFIX-$DATE.sql.gpg"
+S3_URI="s3://$S3_BUCKET_NAME/$PREFIX-$DATE.sql.gpg.gz"
 
 echo "> Running pg_dumpall"
 PGPASSWORD="$POSTGRES_ENV_POSTGRES_PASSWORD" pg_dumpall -h "$POSTGRES_PORT_5432_TCP_ADDR" -U "$POSTGRES_ENV_POSTGRES_USER" > $FILE
