@@ -6,6 +6,7 @@ set -e # stop if any of these commands fail
 : ${AWS_SECRET_ACCESS_KEY:?"-e AWS_SECRET_ACCESS_KEY is not set"}
 : ${S3_BUCKET_NAME:?"-e S3_BUCKET_NAME is not set"}
 : ${PREFIX:?"-e PREFIX is not set"}
+: ${DUMP_OPTIONS:?""}
 
 # Write out runtime ENV vars so that cron can load them in.
 env > /tmp/env.sh
