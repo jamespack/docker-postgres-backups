@@ -8,8 +8,5 @@ set -e # stop if any of these commands fail
 : ${PREFIX:?"-e PREFIX is not set"}
 : ${DUMP_OPTIONS:?""}
 
-# Write out runtime ENV vars so that cron can load them in.
-env > /tmp/env.sh
-
 echo "Starting cron daemon..."
 cron -f
