@@ -1,4 +1,4 @@
-FROM postgres:10.1
+FROM postgres:9.6.3
 MAINTAINER Matt Beedle <me@mattbeedle.name>
 
 USER root
