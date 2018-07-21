@@ -9,7 +9,7 @@ GPG_FILE="/tmp/$PREFIX-$DATE.sql.gpg"
 S3_URI="s3://$S3_BUCKET_NAME/$PREFIX-$DATE.sql.gpg.gz"
 
 echo "> Running pg_dump"
-PGPASSWORD="$POSTGRES_ENV_POSTGRES_PASSWORD" pg_dump --no-owner --clean --if-exists --no-privileges --no-acl -h "$POSTGRES_PORT_5432_TCP_ADDR" -U "$POSTGRES_ENV_POSTGRES_USER" "$POSTGRES_ENV_POSTGRES_DB" > $FILE
+PGPASSWORD="$POSTGRES_PASSWORD" pg_dump --no-owner --clean --if-exists --no-privileges --no-acl -h "$POSTGRES_HOST" -U "$POSTGRES_USER" "$POSTGRES_DB" > $FILE
 
 echo "> Downloading public key: ${GPG_PUBKEY_ID}"
 gpg --keyserver pgp.mit.edu --recv-keys ${GPG_PUBKEY_ID}

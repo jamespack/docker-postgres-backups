@@ -1,5 +1,5 @@
-FROM postgres:9.6.3
-MAINTAINER Matt Beedle <me@mattbeedle.name>
+FROM postgres:10.4
+MAINTAINER James Potter <james.potter@gmail.com>
 
 USER root
 RUN apt-get update
