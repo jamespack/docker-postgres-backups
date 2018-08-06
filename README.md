@@ -23,3 +23,12 @@ postgres_backups:
     POSTGRES_USER: postgres
     POSTGRES_DB: postgres
 ```
+
+Building
+--------
+
+```
+docker build -t drpancake/postgres-backups:latest .
+docker login
+docker push drpancake/postgres-backups:latest
+```
