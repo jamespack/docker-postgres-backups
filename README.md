@@ -2,7 +2,7 @@ docker-postgres-backups
 =======================
 
 Uses `pg_dump` to dump a linked postgres container, encrypts with PGP and
-uploads to S3. Runs every 4 hours via cron.
+uploads to S3. Runs every day at 3am via cron.
 
 Example docker-compose declaration
 ----------------------------------
