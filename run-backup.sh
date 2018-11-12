@@ -12,7 +12,7 @@ echo "> Running pg_dump"
 PGPASSWORD="$POSTGRES_PASSWORD" pg_dumpall -h "$POSTGRES_HOST" -U "$POSTGRES_USER" > $FILE
 
 echo "> Downloading public key: ${GPG_PUBKEY_ID}"
-gpg --keyserver pgp.mit.edu --recv-keys ${GPG_PUBKEY_ID}
+gpg --keyserver ${KEY_SERVER} --recv-keys ${GPG_PUBKEY_ID}
 
 echo "> Encrypting dump file using gpg"
 gpg --always-trust -v -e -r ${GPG_PUBKEY_ID} -o $GPG_FILE $FILE
