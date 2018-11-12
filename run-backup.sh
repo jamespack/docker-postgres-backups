@@ -14,6 +14,11 @@ PGPASSWORD="$POSTGRES_PASSWORD" pg_dumpall -h "$POSTGRES_HOST" -U "$POSTGRES_USE
 echo "> Downloading public key: ${GPG_PUBKEY_ID}"
 gpg --keyserver ${KEY_SERVER} --recv-keys ${GPG_PUBKEY_ID}
 
+( gpg --keyserver ${KEY_SERVER} --recv-keys ${GPG_PUBKEY_ID} \
+  || gpg --keyserver ha.pool.sks-keyservers.net --recv-keys ${GPG_PUBKEY_ID} \
+  || gpg --keyserver pgp.mit.edu --recv-keys ${GPG_PUBKEY_ID} \
+  || gpg --keyserver keyserver.pgp.com --recv-keys ${GPG_PUBKEY_ID} )
+
 echo "> Encrypting dump file using gpg"
 gpg --always-trust -v -e -r ${GPG_PUBKEY_ID} -o $GPG_FILE $FILE
 
