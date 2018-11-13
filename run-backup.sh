@@ -12,7 +12,6 @@ echo "> Running pg_dump"
 PGPASSWORD="$POSTGRES_PASSWORD" pg_dumpall -h "$POSTGRES_HOST" -U "$POSTGRES_USER" > $FILE
 
 echo "> Downloading public key: ${GPG_PUBKEY_ID}"
-gpg --keyserver ${KEY_SERVER} --recv-keys ${GPG_PUBKEY_ID}
 
 ( gpg --keyserver ${KEY_SERVER} --recv-keys ${GPG_PUBKEY_ID} \
   || gpg --keyserver ha.pool.sks-keyservers.net --recv-keys ${GPG_PUBKEY_ID} \
