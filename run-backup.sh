@@ -9,23 +9,20 @@ GPG_FILE="/tmp/$PREFIX-$DATE.sql.gpg"
 S3_URI="s3://$S3_BUCKET_NAME/$PREFIX-$DATE.sql.gpg.gz"
 
 echo "> Running pg_dump"
-PGPASSWORD="$POSTGRES_PASSWORD" pg_dumpall -h "$POSTGRES_HOST" -U "$POSTGRES_USER" > $FILE
+PGPASSWORD="$POSTGRES_PASSWORD" pg_dumpall -h "$POSTGRES_HOST" -p "$POSTGRES_PORT" -U "$POSTGRES_USER" > $FILE
 
-echo "> Downloading public key: ${GPG_PUBKEY_ID}"
-
-( gpg --keyserver ${KEY_SERVER} --recv-keys ${GPG_PUBKEY_ID} \
-  || gpg --keyserver ha.pool.sks-keyservers.net --recv-keys ${GPG_PUBKEY_ID} \
-  || gpg --keyserver pgp.mit.edu --recv-keys ${GPG_PUBKEY_ID} \
-  || gpg --keyserver keyserver.pgp.com --recv-keys ${GPG_PUBKEY_ID} )
+echo "> import public key from /var/gpgkeys/"
+gpg --import ${GPG_PUBKEY_PATH}
 
 echo "> Encrypting dump file using gpg"
-gpg --always-trust -v -e -r ${GPG_PUBKEY_ID} -o $GPG_FILE $FILE
+KEYID=`gpg --batch --with-colons ${GPG_PUBKEY_PATH} | head -n1 | cut -d: -f5`
+gpg --always-trust -v -e -r ${KEYID} -o $GPG_FILE $FILE
 
 echo "> Zipping dump file"
 gzip -9 $GPG_FILE
 
 echo "> Uploading to S3"
-AWS_ACCESS_KEY_ID="$AWS_ACCESS_KEY_ID" AWS_SECRET_ACCESS_KEY="$AWS_SECRET_ACCESS_KEY" aws s3 cp "$GPG_FILE.gz" "$S3_URI" --region "$S3_REGION"
+AWS_ACCESS_KEY_ID="$AWS_ACCESS_KEY_ID" AWS_SECRET_ACCESS_KEY="$AWS_SECRET_ACCESS_KEY" aws s3 cp "$GPG_FILE.gz" "$S3_URI" --endpoint-url "$S3_ENDPOINT" --acl bucket-owner-full-control
 
 # Clean up
 rm $FILE
