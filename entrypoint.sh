@@ -6,8 +6,14 @@ set -e # stop if any of these commands fail
 : ${S3_BUCKET_NAME:?"-e S3_BUCKET_NAME is not set"}
 : ${PREFIX:?"-e PREFIX is not set"}
 
-# Write out runtime ENV vars so that cron can load them in.
+# Write out runtime ENV vars so that we can source them in our script.
+# (cron is not aware of those)
 env > /tmp/env.sh
 
+echo "run job once"
+sh /code/run-backup.sh
+
 echo "Starting cron daemon..."
-cron -f
+cron
+touch /code/backups-cron.log
+tail -f /code/backups-cron.log

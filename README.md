@@ -1,12 +1,24 @@
 docker-postgres-backups
 =======================
 
-Uses `pg_dump` to dump a linked postgres container, encrypts with PGP and
-uploads to S3. Runs a backup every 30 minutes.
+Uses `pg_dump` to dump a postgresDB, encrypts with PGP and uploads to S3.
+It does also cleanup old backups.
 
+#### Schedules
+It does a backup every
+- 5 Minutes to the folder ./latest 
+- hour to the folder ./hourly
+- day to the folder ./daily
+
+#### Clenup
+It removes old backups on s3 in the following way
+- latest-backups: older than 3 hours
+- hourly-backups: older than a day
+- daily-backups: older than 3 months
+
+#### Encryption
 The public-key for gpg should be placed inside a directory and mounted as a 
 volume into the container.
-
 Example docker-compose declaration
 ----------------------------------
 
@@ -26,6 +38,7 @@ postgres_backups:
     POSTGRES_PASSWORD: postgres
     POSTGRES_USER: postgres
     POSTGRES_DB: postgres
+    BUCKET_PATH: postgres-backup
     GPG_PUBKEY_PATH: /var/gpgkeys/pub.key # path to PGP public key
   volumes:
     /local/path/to/key:/var/gpgkeys
