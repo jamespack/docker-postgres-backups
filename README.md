@@ -24,11 +24,11 @@ Example docker-compose declaration
 
 Restore backup
 --------------
-1. delete existing database in DB 
+1. delete existing database in DB  
    ```psql -h <host> -p <port> -U <username> -d <database-name> -c "DROP DATABASE <databse-name>"```
-2. create deleted database again in DB (empty)
+2. create deleted database again in DB (empty)  
    ```psql -h <host> -p <port> -U <username> -d postgres -c "CREATE DATABASE <databse-name>"```
-3. restore / recreate everything in DB from backup file
+3. restore / recreate everything in DB from backup file  
    ```psql -h <host> -p <port> -U <username> -d <database-name> < backup.sql```
 
 
