@@ -20,7 +20,20 @@ It removes old backups on s3 in the following way
 The public-key for gpg should be placed inside a directory and mounted as a 
 volume into the container.
 Example docker-compose declaration
-----------------------------------
+
+
+Restore backup
+--------------
+1. delete existing database in DB 
+   ```psql -h <host> -p <port> -U <username> -d <database-name> -c "DROP DATABASE <databse-name>"```
+2. create deleted database again in DB (empty)
+   ```psql -h <host> -p <port> -U <username> -d postgres -c "CREATE DATABASE <databse-name>"```
+3. restore / recreate everything in DB from backup file
+   ```psql -h <host> -p <port> -U <username> -d <database-name> < backup.sql```
+
+
+Running
+-------
 
 Paste this into your `compose.yaml` file.
 
