@@ -1,4 +1,4 @@
-FROM postgres:11.12
+FROM postgres:13.2
 MAINTAINER Dominique Burnand <youwillfind@me.com>
 
 USER root

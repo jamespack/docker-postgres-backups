@@ -27,7 +27,7 @@ GPG_FILE="/tmp/$PREFIX-$DATE.sql.gpg"
 S3_URI="s3://$S3_BUCKET_NAME/$BUCKET_PATH/$BACKUP_RATE/$PREFIX-$DATE.sql.gpg.gz"
 
 echo "> Running pg_dump"
-PGPASSWORD="$POSTGRES_PASSWORD" pg_dumpall -h "$POSTGRES_HOST" -p "$POSTGRES_PORT" -U "$POSTGRES_USER" > $FILE
+PGPASSWORD="$POSTGRES_PASSWORD" pg_dump -h "$POSTGRES_HOST" -p "$POSTGRES_PORT" -U "$POSTGRES_USER" -F t $POSTGRES_DB > $FILE
 
 echo "> import public key from /var/gpgkeys/"
 gpg --import ${GPG_PUBKEY_PATH}

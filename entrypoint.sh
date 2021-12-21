@@ -5,6 +5,7 @@ set -e # stop if any of these commands fail
 : ${AWS_SECRET_ACCESS_KEY:?"-e AWS_SECRET_ACCESS_KEY is not set"}
 : ${S3_BUCKET_NAME:?"-e S3_BUCKET_NAME is not set"}
 : ${PREFIX:?"-e PREFIX is not set"}
+: ${POSTGRES_DB:?"-e POSTGRES_DB is not set"}
 
 # Write out runtime ENV vars so that we can source them in our script.
 # (cron is not aware of those)
