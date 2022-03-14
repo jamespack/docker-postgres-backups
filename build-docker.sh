@@ -9,7 +9,7 @@ prod_flag=false
 on_prem_flag=false
 username='rt-uploader'
 password=''
-VERSION="2.0"
+VERSION="2.1"
 
 print_usage() {
   printf "Usage: build-docker.sh\n"
