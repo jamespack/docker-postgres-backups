@@ -1,4 +1,4 @@
-FROM image postgres:13.2
+FROM postgres:13.2
 MAINTAINER Dominique Burnand <youwillfind@me.com>
 
 RUN apt-get update
